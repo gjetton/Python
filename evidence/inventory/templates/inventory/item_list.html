@@ -1,0 +1,41 @@
+<!-- item_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Item List</h1>
+
+    <!-- Search form -->
+    <form method="get" action="{% url 'item_list' %}">
+        <input type="text" name="search" value="{{ search_query }}" placeholder="Search by name">
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>User</th>
+                    <th>Court Date</th>
+                    <th>Disposition</th>
+                    <th>Location</th>
+                    <th>Barcode</th>
+                    <th>Digital Media</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.user.username }}</td>
+                        <td>{{ item.court_date }}</td>
+                        <td>{{ item.disposition }}</td>
+                        <td>{{ item.location.name }}</td>
+                        <td>{{ item.barcode }}</td>
+                        <td><a href="{{ item.digital_media }}" target="_blank">{{ item.digital_media }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
